@@ -1,10 +1,10 @@
 * **ElasticSearch**
-    * [架构](elasticsearch/架构.md)
-    * [Mapping](elasticsearch/Mapping.md)
-    * [分词](elasticsearch/分词.md)
-    * [客户端](elasticsearch/客户端.md)
+    * [架构](Elasticsearch/架构.md)
+    * [Mapping](Elasticsearch/Mapping.md)
+    * [分词](Elasticsearch/分词.md)
+    * [客户端](Elasticsearch/客户端.md)
     * **DSL**
-      * [精确查询](elasticsearch/DSL/精确查询.md)
-      * [全文检索查询](elasticsearch/DSL/全文检索查询.md)
-      * [复合查询-bool查询](elasticsearch/DSL/复合查询-bool查询.md)
-      * [object和nested](elasticsearch/DSL/object和nested.md)
+      * [精确查询](Elasticsearch/DSL/精确查询.md)
+      * [全文检索查询](Elasticsearch/DSL/全文检索查询.md)
+      * [复合查询-bool查询](Elasticsearch/DSL/复合查询-bool查询.md)
+      * [object和nested](Elasticsearch/DSL/object和nested.md)
