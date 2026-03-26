@@ -1,12 +1,4 @@
 * **老闫的技术手册**
   * [首页](/)
-* **Elasticsearch**
-    * [架构](Elasticsearch/架构.md)
-    * [Mapping](Elasticsearch/Mapping.md)
-    * [分词](Elasticsearch/分词.md)
-    * [客户端](Elasticsearch/客户端.md)
-    * **DSL**
-      * [精确查询](Elasticsearch/DSL/精确查询.md)
-      * [全文检索查询](Elasticsearch/DSL/全文检索查询.md)
-      * [复合查询-bool查询](Elasticsearch/DSL/复合查询-bool查询.md)
-      * [object和nested](Elasticsearch/DSL/object和nested.md)
+
+[这里是目录](_sidebar.md ":include")

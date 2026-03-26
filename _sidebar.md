@@ -8,3 +8,4 @@
       * [全文检索查询](Elasticsearch/DSL/全文检索查询.md)
       * [复合查询-bool查询](Elasticsearch/DSL/复合查询-bool查询.md)
       * [object和nested](Elasticsearch/DSL/object和nested.md)
+* [本地使用](usage.md)
