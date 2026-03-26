@@ -1,23 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <title>我的文档</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
+  <meta name="description" content="个人文档中心">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    .sidebar-nav > ul > li {
+      position: relative;
+    }
+    
+    .sidebar-nav > ul > li > p {
+      font-weight: bold;
+      color: #333;
+      margin: 15px 0 8px 0;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      padding-left: 18px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .sidebar-nav > ul > li > p:hover {
+      color: #42b983;
+    }
+    
+    .sidebar-nav > ul > li > p .arrow {
+      position: absolute;
+      left: 0;
+      font-size: 10px;
+      color: #666;
+      transition: transform 0.2s ease;
+      width: 12px;
+      display: inline-block;
+    }
+    
+    .sidebar-nav > ul > li.collapsed > p .arrow {
+      transform: rotate(-90deg);
+    }
+    
+    .sidebar-nav > ul > li.collapsed > ul {
+      display: none !important;
+    }
+    
+    .sidebar-nav > ul > li > ul {
+      margin-left: 5px;
+      padding-left: 10px;
+      border-left: 1px solid #e8e8e8;
+    }
+    
+    .sidebar-nav > ul > li > ul > li {
+      margin: 5px 0;
+    }
+    
+    .sidebar-nav > ul > li > ul > li > a {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .sidebar-nav > ul > li > ul > li > a:hover {
+      color: #42b983;
+    }
+    
+    .sidebar-nav > ul > li > ul > li > a.active {
+      color: #42b983;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
   <div id="app">加载中...</div>
   <script>
+    // 存储折叠状态的对象（key: 分组标题, value: 是否折叠）
+    var sidebarCollapseState = {};
+    var currentPath = '';
+
     window.$docsify = {
-      name: '我的项目名称',
-      repo: '你的github仓库地址', // 右上角会显示一个 GitHub 挂件
-      loadSidebar: true,      // 开启侧边栏（后面会说怎么配）
-      subMaxLevel: 10          // 侧边栏显示的层级深度
+      name: '📚 我的文档',
+      repo: '',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      homepage: 'README.md',
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '🔍 搜索文档...',
+        noData: '找不到相关结果',
+        depth: 6,
+        hideOtherSidebarContent: false
+      }
+    };
+
+    // 获取分组标题（从 strong 标签获取，不包含箭头）
+    function getGroupTitle(p) {
+      var strong = p.querySelector('strong');
+      return strong ? strong.textContent.trim() : p.textContent.trim();
     }
+
+    // 应用折叠状态到 DOM
+    function applyCollapseState() {
+      var sidebar = document.querySelector('.sidebar-nav > ul');
+      if (!sidebar) return;
+      
+      var topLevelItems = sidebar.querySelectorAll(':scope > li');
+      
+      topLevelItems.forEach(function(item) {
+        var p = item.querySelector(':scope > p');
+        var ul = item.querySelector(':scope > ul');
+        
+        if (p && ul) {
+          var title = getGroupTitle(p);
+          
+          // 恢复保存的状态（默认展开）
+          if (sidebarCollapseState[title] === true) {
+            item.classList.add('collapsed');
+          } else {
+            item.classList.remove('collapsed');
+          }
+          
+          // 添加或更新箭头
+          var arrow = p.querySelector('.arrow');
+          if (!arrow) {
+            arrow = document.createElement('span');
+            arrow.className = 'arrow';
+            arrow.innerHTML = '▼';
+            p.insertBefore(arrow, p.firstChild);
+          }
+        }
+      });
+    }
+
+    // 绑定点击事件（事件委托）
+    function bindCollapseEvents() {
+      var sidebar = document.querySelector('.sidebar-nav');
+      if (!sidebar || sidebar.dataset.collapseBound) return;
+      
+      sidebar.addEventListener('click', function(e) {
+        var p = e.target.closest('.sidebar-nav > ul > li > p');
+        if (!p) return;
+        
+        var li = p.parentElement;
+        var ul = li.querySelector(':scope > ul');
+        if (!ul) return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var isCollapsed = li.classList.toggle('collapsed');
+        var title = getGroupTitle(p);
+        sidebarCollapseState[title] = isCollapsed;
+      });
+      
+      sidebar.dataset.collapseBound = 'true';
+    }
+
+    // Docsify 插件
+    window.$docsify.plugins = [].concat(window.$docsify.plugins || [], function(hook, vm) {
+      hook.doneEach(function() {
+        // 使用 requestAnimationFrame 确保 DOM 完全更新
+        requestAnimationFrame(function() {
+          applyCollapseState();
+          bindCollapseEvents();
+        });
+      });
+    });
   </script>
+  
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
 </body>
 </html>
