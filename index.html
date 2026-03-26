@@ -115,11 +115,11 @@
         if (p && ul) {
           var title = getGroupTitle(p);
           
-          // 恢复保存的状态（默认展开）
-          if (sidebarCollapseState[title] === true) {
-            item.classList.add('collapsed');
-          } else {
+          // 恢复保存的状态（默认折叠）
+          if (sidebarCollapseState[title] === false) {
             item.classList.remove('collapsed');
+          } else {
+            item.classList.add('collapsed');
           }
           
           // 添加或更新箭头
