@@ -1,5 +1,3 @@
-* **入门指南**
-  * [首页](/)
 * **Elasticsearch**
     * [架构](Elasticsearch/架构.md)
     * [Mapping](Elasticsearch/Mapping.md)
