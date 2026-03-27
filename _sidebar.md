@@ -1,5 +1,8 @@
 - **Elasticsearch**
     - [架构](Elasticsearch/架构.md)
+    - [读写过程](Elasticsearch/读写过程.md)
+    - [查询过程](ElasticSearch/查询过程.md)
+    - [性能优化](Elasticsearch/性能优化.md)
     - [Mapping](Elasticsearch/Mapping.md)
     - [分词](Elasticsearch/分词.md)
     - [客户端](Elasticsearch/客户端.md)
