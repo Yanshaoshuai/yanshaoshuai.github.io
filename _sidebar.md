@@ -15,4 +15,9 @@
     - [事务](MySQL/事务.md)
     - [索引](MySQL/索引.md)
     - [读写流程](MySQL/读写流程.md)
+    - [优化](MySQL/优化.md)
+- **Redis**
+    - [知识点](Redis/知识点.md)
+- **Kafka**
+    - [核心原理](Kafka/核心原理.md)
 - [本地使用](usage.md)
